@@ -7,19 +7,27 @@ var ReactPikaday = React.createClass({
 
   propTypes: {
     value: React.PropTypes.instanceOf(Date),
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+
+    valueLink: React.PropTypes.shape({
+      value: React.PropTypes.instanceOf(Date),
+      requestChange: React.PropTypes.func.isRequired
+    })
   },
 
-  componentDidUpdate: function(prevProps) {
-    this.setDateIfChanged(this.props.value, prevProps.value);
+  getValueLink: function(props) {
+    return props.valueLink || {
+      value: props.value,
+      requestChange: props.onChange
+    };
   },
 
   setDateIfChanged: function(newDate, prevDate) {
-    prevDate = prevDate ? prevDate.getTime() : null;
-    newDate = newDate ? newDate.getTime() : null;
+    var newTime = newDate ? newDate.getTime() : null;
+    var prevTime = prevDate ? prevDate.getTime() : null;
 
-    if ( newDate !== prevDate ) {
-      this._picker.setDate(this.props.value, true);  // 2nd param = don't call onSelect
+    if ( newTime !== prevTime ) {
+      this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
     }
   },
 
@@ -28,10 +36,17 @@ var ReactPikaday = React.createClass({
 
     this._picker = new Pikaday({
       field: el,
-      onSelect: this.props.onChange
+      onSelect: this.getValueLink(this.props).requestChange
     });
 
-    this.setDateIfChanged(this.props.value);
+    this.setDateIfChanged(this.getValueLink(this.props).value);
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    var newDate = this.getValueLink(nextProps).value;
+    var lastDate = this.getValueLink(this.props).value;
+
+    this.setDateIfChanged(newDate, lastDate);
   },
 
   render: function() {
