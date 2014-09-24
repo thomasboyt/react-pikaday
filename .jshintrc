@@ -1,0 +1,25 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "nonew": true,
+  "undef": true,
+  "unused": true,
+  "sub": true,
+  "expr": true,
+
+  "browser": true,
+  "devel": true,
+
+  "esnext": true,
+  "node": true,
+
+  "globals": {
+    "describe": false,
+    "it": false,
+    "beforeEach": false,
+    "afterEach": false,
+    "before": false,
+    "after": false
+  }
+}
