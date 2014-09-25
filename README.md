@@ -60,4 +60,24 @@ var MyComponent = React.createClass({
 
 ## Properties
 
-*(todo)*
+<table>
+  <tr>
+    <td><code>value</code></td>
+    <td>A Date object to set the currently-displayed date to.</td>
+  </tr>
+  <tr>
+    <td><code>onChange</code></td>
+    <td>
+      A callback called when the date is updated by the user. Passes a Date object as the first
+      argument.
+    </td>
+  </tr>
+  <tr>
+    <td><code>valueLink</code></td>
+    <td>
+      Instead of manually hooking up value/onChange to a state variable, you can instead use
+      [LinkedStateMixin](http://facebook.github.io/react/docs/two-way-binding-helpers.html) to
+      bind the two.
+    </td>
+  </tr>
+</table>
