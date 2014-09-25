@@ -63,7 +63,7 @@ describe('Pikaday', () => {
 
   });
 
-  describe('updating the passed-in value updates the rendered date', () => {
+  describe('setting the passed-in value sets the rendered date', () => {
 
     it('works manually', () => {
       var Form = React.createClass({
@@ -93,7 +93,7 @@ describe('Pikaday', () => {
         mixins: [ React.addons.LinkedStateMixin ],
 
         getInitialState: function() {
-          return { date: null };
+          return { date: new Date(2014, 0, 1) };
         },
 
         render: function() {
