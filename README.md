@@ -76,8 +76,8 @@ var MyComponent = React.createClass({
     <td><code>valueLink</code></td>
     <td>
       Instead of manually hooking up value/onChange to a state variable, you can instead use
-      [LinkedStateMixin](http://facebook.github.io/react/docs/two-way-binding-helpers.html) to
-      bind the two.
+      <a href="http://facebook.github.io/react/docs/two-way-binding-helpers.html">LinkedStateMixin</a>
+      to bind the two.
     </td>
   </tr>
 </table>
