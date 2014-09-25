@@ -4,8 +4,8 @@ module.exports = {
   },
 
   output: {
-    path: 'build/',
-    filename: "example.bundle.js"
+    // path: 'example/',
+    filename: "example/example.bundle.js"
   },
 
   resolve: {
