@@ -1,71 +1,68 @@
 /** @jsx React.DOM */
 
 (function (root){
-  if (typeof require !== 'undefined') {
-    var React = require('react');
-    var Pikaday = require('pikaday');
-  }
+  function build(React, Pikaday){
+    var ReactPikaday = React.createClass({
 
-  var ReactPikaday = React.createClass({
-
-    propTypes: {
-      value: React.PropTypes.instanceOf(Date),
-      onChange: React.PropTypes.func,
-
-      valueLink: React.PropTypes.shape({
+      propTypes: {
         value: React.PropTypes.instanceOf(Date),
-        requestChange: React.PropTypes.func.isRequired
-      })
-    },
+        onChange: React.PropTypes.func,
 
-    getValueLink: function(props) {
-      return props.valueLink || {
-        value: props.value,
-        requestChange: props.onChange
-      };
-    },
+        valueLink: React.PropTypes.shape({
+          value: React.PropTypes.instanceOf(Date),
+          requestChange: React.PropTypes.func.isRequired
+        })
+      },
 
-    setDateIfChanged: function(newDate, prevDate) {
-      var newTime = newDate ? newDate.getTime() : null;
-      var prevTime = prevDate ? prevDate.getTime() : null;
+      getValueLink: function(props) {
+        return props.valueLink || {
+          value: props.value,
+          requestChange: props.onChange
+        };
+      },
 
-      if ( newTime !== prevTime ) {
-        this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
+      setDateIfChanged: function(newDate, prevDate) {
+        var newTime = newDate ? newDate.getTime() : null;
+        var prevTime = prevDate ? prevDate.getTime() : null;
+
+        if ( newTime !== prevTime ) {
+          this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
+        }
+      },
+
+      componentDidMount: function() {
+        var el = this.refs.pikaday.getDOMNode();
+
+        this._picker = new Pikaday({
+          field: el,
+          onSelect: this.getValueLink(this.props).requestChange
+        });
+
+        this.setDateIfChanged(this.getValueLink(this.props).value);
+      },
+
+      componentWillReceiveProps: function(nextProps) {
+        var newDate = this.getValueLink(nextProps).value;
+        var lastDate = this.getValueLink(this.props).value;
+
+        this.setDateIfChanged(newDate, lastDate);
+      },
+
+      render: function() {
+        return (
+          <input type="text" ref="pikaday" className={this.props.className}
+            placeholder={this.props.placeholder} />
+        );
       }
-    },
-
-    componentDidMount: function() {
-      var el = this.refs.pikaday.getDOMNode();
-
-      this._picker = new Pikaday({
-        field: el,
-        onSelect: this.getValueLink(this.props).requestChange
-      });
-
-      this.setDateIfChanged(this.getValueLink(this.props).value);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-      var newDate = this.getValueLink(nextProps).value;
-      var lastDate = this.getValueLink(this.props).value;
-
-      this.setDateIfChanged(newDate, lastDate);
-    },
-
-    render: function() {
-      return (
-        <input type="text" ref="pikaday" className={this.props.className}
-          placeholder={this.props.placeholder} />
-      );
-    }
-  });
+    });
+    return ReactPikaday;
+  };
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ReactPikaday;
+    module.exports = build(require('react'), require('pikaday'));
   } else if (typeof define === 'function' && define.amd) {
-    define(function() { return ReactPikaday; });
+    define(['React', 'Pikaday'], build);
   } else {
-    root.ReactPikaday = ReactPikaday;
+    root.ReactPikaday = build(root.React, root.Pikaday);
   }
-
 }(this));
