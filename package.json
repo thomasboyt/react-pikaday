@@ -22,7 +22,11 @@
     "webpack": "^1.4.3",
     "webpack-dev-server": "^1.6.5"
   },
-
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
   "scripts": {
     "test": "scripts/test",
     "build-example": "scripts/build-example"
