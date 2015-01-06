@@ -56,7 +56,7 @@ var LinkedStateExample = React.createClass({
           The date is {formattedDate}
         </p>
         <p>
-          <Pikaday linkedValue={this.linkState('date')} />
+          <Pikaday valueLink={this.linkState('date')} />
         </p>
         <button onClick={() => { this.setState({date: null}); }}>
           Clear date
