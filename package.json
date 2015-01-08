@@ -5,7 +5,7 @@
   "main": "src/Pikaday.js",
 
   "dependencies": {
-    "pikaday": "git://github.com/thomasboyt/pikaday#clear-field-on-falsy-setDate",
+    "pikaday": "^1.2.0",
     "react": "^0.11.2"
   },
   "devDependencies": {
