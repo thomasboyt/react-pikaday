@@ -110,4 +110,37 @@ describe('Pikaday', () => {
     });
 
   });
+
+  describe('clearing the value', () => {
+    it('works with LinkedStateMixin', function () {
+      var Form = React.createClass({
+        mixins: [ React.addons.LinkedStateMixin ],
+
+        getInitialState: function() {
+          return { date: new Date(2014, 0, 1) };
+        },
+
+        render: function() {
+          return (
+            <div>
+              <Pikaday ref="pikaday" valueLink={this.linkState('date')} />
+              <button ref="clearBtn"
+                onClick={() => this.setState({ date: null })}>
+                Clear
+              </button>
+            </div>
+          );
+        }
+      });
+
+      var component = React.renderComponent(<Form />, document.createElement('div'));
+
+      var input = TU.findRenderedDOMComponentWithTag(component, 'input').getDOMNode();
+      expect(input.value).to.be.eql('2014-01-01');
+
+      var clearBtn = component.refs.clearBtn.getDOMNode();
+      TU.Simulate.click(clearBtn);
+      expect(input.value).to.be.eql('');
+    });
+  });
 });
