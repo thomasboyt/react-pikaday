@@ -54,7 +54,7 @@ var ReactPikaday = React.createClass({
   render: function() {
     return (
       <input type="text" ref="pikaday" className={this.props.className}
-        placeholder={this.props.placeholder} />
+        placeholder={this.props.placeholder} disabled={this.props.disabled} />
     );
   }
 });
