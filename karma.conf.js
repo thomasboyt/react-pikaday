@@ -1,57 +1,46 @@
+var webpack = require('webpack');
+
+var webpackConfig = {
+  devtool: 'inline-source-map',
+
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules\/)/,
+        loader: 'babel-loader'
+      },
+    ],
+
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: '"test"'
+        }
+      })
+    ]
+  }
+};
+
 module.exports = function(config) {
   config.set({
 
-    basePath: '',
-
+    browsers: ['Chrome'],
     frameworks: ['mocha'],
+    reporters: ['mocha'],
 
     files: [
-      'spec/main.js'
+      'src/__tests__/main.spec.js',
     ],
 
-    exclude: [],
-
     preprocessors: {
-      'spec/main.js': ['webpack']
+      'src/__tests__/main.spec.js': ['webpack', 'sourcemap']
     },
 
-    webpack: {
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            loader: 'jsx-loader?harmony'
-          }
-        ]
-      }
-    },
+    webpack: webpackConfig,
 
     webpackServer: {
-      stats: {
-        colors: true
-      }
+      noInfo: true,
     },
-
-    reporters: ['progress'],
-
-    port: 9876,
-
-    colors: true,
-
-    logLevel: config.LOG_INFO,
-
-    autoWatch: true,
-
-    browsers: ['Chrome'],
-
-    captureTimeout: 60000,
-
-    singleRun: false,
-
-    plugins: [
-      require("karma-mocha"),
-      require("karma-chrome-launcher"),
-      require("karma-webpack")
-    ]
   });
 };

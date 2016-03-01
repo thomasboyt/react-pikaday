@@ -1,5 +1,7 @@
 # react-pikaday
 
+[![Build Status](https://travis-ci.org/thomasboyt/react-pikaday.svg?branch=master)](https://travis-ci.org/thomasboyt/react-pikaday) [![npm](https://img.shields.io/npm/v/react-pikaday.svg)](https://www.npmjs.com/package/react-pikaday)
+
 A component wrapper around [Pikaday](https://github.com/dbushell/Pikaday).
 
 **[View Example](http://www.thomasboyt.com/react-pikaday/)**
@@ -8,12 +10,13 @@ A component wrapper around [Pikaday](https://github.com/dbushell/Pikaday).
 
 ### Normal
 
-If you're using Browserify, or want to bring a custom Pikaday stylesheet, just require this
-component like any other module:
+To import Pikaday without any CSS:
 
 ```javascript
-var Pikaday = require('react-pikaday');
+import Pikaday from 'react-pikaday';
 ```
+
+You'll then need to make sure you include the CSS from `pikaday/css/pikaday.css`.
 
 ### Bundled
 
@@ -22,15 +25,16 @@ If you're using [webpack](http://webpack.github.io/) with a configured
 component along with the Pikaday CSS in one go:
 
 ```javascript
-var Pikaday = require('react-pikaday/bundled');
+import Pikaday from 'react-pikaday/bundled';
 ```
+
+See the example app in this repo and the `webpack.config.js` for an example of how this can be configured.
 
 ## Usage
 
 ```javascript
-/** @jsx React.DOM */
-var React = require('react');
-var Pikaday = require('react-pikaday');
+import React from 'react';
+import Pikaday from 'react-pikaday';
 
 var MyComponent = React.createClass({
   getInitialState: function() {

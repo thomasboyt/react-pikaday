@@ -27,14 +27,14 @@ var ReactPikaday = React.createClass({
     if ( newTime !== prevTime ) {
       if ( newDate === null ) {
         // Workaround for pikaday not clearing value when date set to falsey
-        this.refs.pikaday.getDOMNode().value = '';
+        this.refs.pikaday.value = '';
       }
       this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
     }
   },
 
   componentDidMount: function() {
-    var el = this.refs.pikaday.getDOMNode();
+    var el = this.refs.pikaday;
 
     this._picker = new Pikaday({
       field: el,

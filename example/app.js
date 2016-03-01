@@ -1,7 +1,7 @@
-/** @jsx React.DOM */
-var React = require('react/addons');
-var Pikaday = require('../bundled');
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import LinkedStateMixin from 'react-addons-linked-state-mixin';
+import Pikaday from '../bundled';
 
 var ManualExample = React.createClass({
   getInitialState: function() {
@@ -38,7 +38,7 @@ var ManualExample = React.createClass({
 
 
 var LinkedStateExample = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [LinkedStateMixin],
 
   getInitialState: function() {
     return {
@@ -80,4 +80,4 @@ var Examples = React.createClass({
   }
 });
 
-React.renderComponent(<Examples />, document.getElementById('container'));
+ReactDOM.render(<Examples />, document.getElementById('container'));
