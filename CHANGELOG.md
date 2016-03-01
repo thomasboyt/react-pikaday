@@ -1,5 +1,20 @@
 ## Changelog
 
+### v0.4.0 (Mar 1, 2016)
+
+* **[Breaking]** react-pikaday now uses ES6 modules through Babel. If you use ES6 modules, you shouldn't have to change anything. If you use CommonJS, you'll now need to import react-pikaday like so:
+
+```js
+// before
+var Pikaday = require('react-pikaday');
+
+//after
+var Pikaday = require('react-pikaday').default;
+```
+
+* react-pikaday now uses a peer dependency for React, preventing duplicate copies of React from being installed ([#13](https://github.com/thomasboyt/react-pikaday/issues/13))
+* react-pikaday no longer uses the long-deprecated `getDOMNode()` API ([#14](https://github.com/thomasboyt/react-pikaday/issues/14))
+
 ### v0.3.1 (Jul 14, 2015)
 
 * The version of `react-pikaday` on NPM is now prebuilt through Babel and no longer requires a build step. Sorry for the delay on this!
