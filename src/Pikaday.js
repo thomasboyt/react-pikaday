@@ -1,5 +1,5 @@
-var React = require('react');
-var Pikaday = require('pikaday');
+import React from 'react';
+import Pikaday from 'pikaday';
 
 var ReactPikaday = React.createClass({
 
@@ -59,4 +59,4 @@ var ReactPikaday = React.createClass({
   }
 });
 
-module.exports = ReactPikaday;
+export default ReactPikaday;
