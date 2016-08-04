@@ -6,11 +6,18 @@ var ReactPikaday = React.createClass({
   propTypes: {
     value: React.PropTypes.instanceOf(Date),
     onChange: React.PropTypes.func,
+    initialOptions: React.PropTypes.object,
 
     valueLink: React.PropTypes.shape({
       value: React.PropTypes.instanceOf(Date),
       requestChange: React.PropTypes.func.isRequired
     })
+  },
+
+  getDefaultProps: function() {
+    return {
+      initialOptions: {}
+    };
   },
 
   getValueLink: function(props) {
@@ -38,7 +45,8 @@ var ReactPikaday = React.createClass({
 
     this._picker = new Pikaday({
       field: el,
-      onSelect: this.getValueLink(this.props).requestChange
+      onSelect: this.getValueLink(this.props).requestChange,
+      ...this.props.initialOptions
     });
 
     this.setDateIfChanged(this.getValueLink(this.props).value);
