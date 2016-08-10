@@ -12,6 +12,13 @@ describe('Pikaday', () => {
     expect(component).to.be.ok;
   });
 
+  it('renders with id attribute', () => {
+    var id = 'pikaday-field-id';
+    var component = ReactDOM.render(<Pikaday id={id} />, document.createElement('div'));
+    var input = TU.findRenderedDOMComponentWithTag(component, 'input');
+    expect(input.id).to.be.eql(id);
+  });
+
   describe('updating the date in Pikaday calls handleChange', () => {
 
     it('works manually', function() {
