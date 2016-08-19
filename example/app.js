@@ -26,7 +26,7 @@ var ManualExample = React.createClass({
           The date is {formattedDate}
         </p>
         <p>
-          <Pikaday value={date} onChange={this.handleChange} />
+          <Pikaday name="date" value={date} onChange={this.handleChange} />
         </p>
         <button onClick={() => {this.handleChange(null);}}>
           Clear date

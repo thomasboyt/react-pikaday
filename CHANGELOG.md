@@ -1,5 +1,9 @@
 ## Changelog
 
+### master
+
+* Allow user to specify arbitrary props that will be passed on to the underlying <input> node (eg props: name, placeholder, data-*, ...)
+
 ### v0.4.1 (Apr 8 2016)
 
 * Allow React 15.x as a peer dependency

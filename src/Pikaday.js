@@ -40,6 +40,17 @@ var ReactPikaday = React.createClass({
     }
   },
 
+  // user props to pass down to the underlying DOM node
+  getDomProps: function() {
+    var restProps = {};
+    for (var propKey in this.props) {
+      if (this.props.hasOwnProperty(propKey) && !ReactPikaday.propTypes[propKey]) {
+        restProps[propKey] = this.props[propKey];
+      }
+    }
+    return restProps
+  },
+
   componentDidMount: function() {
     var el = this.refs.pikaday;
 
@@ -61,8 +72,7 @@ var ReactPikaday = React.createClass({
 
   render: function() {
     return (
-      <input type="text" ref="pikaday" className={this.props.className}
-        placeholder={this.props.placeholder} disabled={this.props.disabled} />
+      <input type="text" ref="pikaday" {...this.getDomProps()} />
     );
   }
 });
