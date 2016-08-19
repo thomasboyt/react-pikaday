@@ -6,9 +6,11 @@ import TU from 'react-addons-test-utils';
 
 import Pikaday from '../Pikaday';
 
+const render = (reactEl) => ReactDOM.render(reactEl, document.createElement('div'));
+
 describe('Pikaday', () => {
   it('renders', () => {
-    var component = ReactDOM.render(<Pikaday />, document.createElement('div'));
+    var component = render(<Pikaday />);
     expect(component).to.be.ok;
   });
 
@@ -31,7 +33,7 @@ describe('Pikaday', () => {
         }
       });
 
-      var component = ReactDOM.render(<Form />, document.createElement('div'));
+      var component = render(<Form />);
       var pikaday = component.refs.pikaday._picker;
       pikaday.setDate(new Date(2014, 0, 1));
 
@@ -53,7 +55,7 @@ describe('Pikaday', () => {
         }
       });
 
-      var component = ReactDOM.render(<Form />, document.createElement('div'));
+      var component = render(<Form />);
       var pikaday = component.refs.pikaday._picker;
       pikaday.setDate(new Date(2014, 0, 1));
 
@@ -81,7 +83,7 @@ describe('Pikaday', () => {
         }
       });
 
-      var component = ReactDOM.render(<Form />, document.createElement('div'));
+      var component = render(<Form />);
 
       var input = TU.findRenderedDOMComponentWithTag(component, 'input');
       expect(input.value).to.be.eql('2014-01-01');
@@ -102,7 +104,7 @@ describe('Pikaday', () => {
         }
       });
 
-      var component = ReactDOM.render(<Form />, document.createElement('div'));
+      var component = render(<Form />);
 
       var input = TU.findRenderedDOMComponentWithTag(component, 'input');
       expect(input.value).to.be.eql('2014-01-01');
@@ -132,7 +134,7 @@ describe('Pikaday', () => {
         }
       });
 
-      var component = ReactDOM.render(<Form />, document.createElement('div'));
+      var component = render(<Form />);
 
       var input = TU.findRenderedDOMComponentWithTag(component, 'input');
       expect(input.value).to.be.eql('2014-01-01');
@@ -159,5 +161,13 @@ describe('Pikaday', () => {
 
       expect(result).to.eql(minDate);
     });
+  });
+
+  it('passes arbitrary, unexpected props to the input node', () => {
+    var component = render(<Pikaday name="foo" initialOptions={{foo: 'bar'}} />);
+    var input = TU.findRenderedDOMComponentWithTag(component, 'input');
+
+    expect(input.initialOptions).to.be.undefined
+    expect(input.name).to.eql('foo')
   });
 });
