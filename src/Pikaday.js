@@ -7,6 +7,7 @@ var ReactPikaday = React.createClass({
     value: React.PropTypes.instanceOf(Date),
     onChange: React.PropTypes.func,
     initialOptions: React.PropTypes.object,
+    dateRange: React.PropTypes.bool,
 
     valueLink: React.PropTypes.shape({
       value: React.PropTypes.instanceOf(Date),
@@ -16,7 +17,8 @@ var ReactPikaday = React.createClass({
 
   getDefaultProps: function() {
     return {
-      initialOptions: {}
+      initialOptions: {},
+      dateRange: false
     };
   },
 
@@ -37,6 +39,15 @@ var ReactPikaday = React.createClass({
         this.refs.pikaday.value = '';
       }
       this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
+    }
+  },
+
+  setRangeIfChanged: function(newOptions, prevOptions) {
+    if(newOptions.hasOwnProperty('minDate') && prevOptions.hasOwnProperty('minDate') && newOptions.minDate != prevOptions.minDate) {
+      this._picker.setMinDate(newOptions.minDate);
+    }
+    if(newOptions.hasOwnProperty('maxDate') && prevOptions.hasOwnProperty('maxDate') && newOptions.maxDate != prevOptions.maxDate) {
+      this._picker.setMaxDate(newOptions.maxDate);
     }
   },
 
@@ -68,6 +79,10 @@ var ReactPikaday = React.createClass({
     var lastDate = this.getValueLink(this.props).value;
 
     this.setDateIfChanged(newDate, lastDate);
+
+    if(this.props.dateRange) {
+      this.setRangeIfChanged(nextProps.initialOptions, this.props.initialOptions);
+    }
   },
 
   render: function() {
