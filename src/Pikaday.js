@@ -7,7 +7,8 @@ var ReactPikaday = React.createClass({
     value: React.PropTypes.instanceOf(Date),
     onChange: React.PropTypes.func,
     initialOptions: React.PropTypes.object,
-    dateRange: React.PropTypes.bool,
+    isStart: React.PropTypes.bool,
+    isEnd: React.PropTypes.bool,
 
     valueLink: React.PropTypes.shape({
       value: React.PropTypes.instanceOf(Date),
@@ -18,7 +19,8 @@ var ReactPikaday = React.createClass({
   getDefaultProps: function() {
     return {
       initialOptions: {},
-      dateRange: false
+      isStart: false,
+      isEnd: false
     };
   },
 
@@ -42,13 +44,20 @@ var ReactPikaday = React.createClass({
     }
   },
 
-  setRangeIfChanged: function(newOptions, prevOptions) {
-    if(newOptions.hasOwnProperty('minDate') && prevOptions.hasOwnProperty('minDate') && newOptions.minDate != prevOptions.minDate) {
-      this._picker.setMinDate(newOptions.minDate);
+  updateStartDate: function(date, options) {
+    this._picker.setStartRange(date);
+    if(options.hasOwnProperty('maxDate')) {
+      this._picker.setEndRange(options.maxDate);
+      this._picker.setMaxDate(options.maxDate);
     }
-    if(newOptions.hasOwnProperty('maxDate') && prevOptions.hasOwnProperty('maxDate') && newOptions.maxDate != prevOptions.maxDate) {
-      this._picker.setMaxDate(newOptions.maxDate);
+  },
+
+  updateEndDate: function(date, options) {
+    if(options.hasOwnProperty('minDate')) {
+      this._picker.setStartRange(options.minDate);
+      this._picker.setMinDate(options.minDate);
     }
+    this._picker.setEndRange(date);
   },
 
   // user props to pass down to the underlying DOM node
@@ -80,8 +89,11 @@ var ReactPikaday = React.createClass({
 
     this.setDateIfChanged(newDate, lastDate);
 
-    if(this.props.dateRange) {
-      this.setRangeIfChanged(nextProps.initialOptions, this.props.initialOptions);
+    if(this.props.isStart) {
+      this.updateStartDate(newDate, nextProps.initialOptions);
+    }
+    else if(this.props.isEnd) {
+      this.updateEndDate(newDate, nextProps.initialOptions);
     }
   },
 

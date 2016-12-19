@@ -15,7 +15,7 @@
     "url": "http://github.com/thomasboyt/react-pikaday.git"
   },
   "dependencies": {
-    "pikaday": "^1.2.0"
+    "pikaday": "^1.5.1"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-rc.1"
