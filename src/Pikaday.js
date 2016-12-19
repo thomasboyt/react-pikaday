@@ -81,6 +81,13 @@ var ReactPikaday = React.createClass({
     });
 
     this.setDateIfChanged(this.getValueLink(this.props).value);
+
+    if(this.props.isStart) {
+      this.updateStartDate(this.props.value, this.props.initialOptions);
+    }
+    else if(this.props.isEnd) {
+      this.updateEndDate(this.props.value, this.props.initialOptions);
+    }
   },
 
   componentWillReceiveProps: function(nextProps) {
