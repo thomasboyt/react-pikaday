@@ -34,9 +34,10 @@ See the example app in this repo and the `webpack.config.js` for an example of h
 
 ```javascript
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Pikaday from 'react-pikaday';
 
-var MyComponent = React.createClass({
+var MyComponent = createReactClass({
   getInitialState: function() {
     return {
       date: null

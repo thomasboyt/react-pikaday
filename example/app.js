@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import Pikaday from '../bundled';
 
-var ManualExample = React.createClass({
+var ManualExample = createReactClass({
   getInitialState: function() {
     return {
       date: null
@@ -37,7 +38,7 @@ var ManualExample = React.createClass({
 });
 
 
-var LinkedStateExample = React.createClass({
+var LinkedStateExample = createReactClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function() {
@@ -67,7 +68,7 @@ var LinkedStateExample = React.createClass({
 });
 
 
-var Examples = React.createClass({
+var Examples = createReactClass({
   render: function() {
     return (
       <div>

@@ -1,16 +1,18 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Pikaday from 'pikaday';
 
-var ReactPikaday = React.createClass({
+var ReactPikaday = createReactClass({
 
   propTypes: {
-    value: React.PropTypes.instanceOf(Date),
-    onChange: React.PropTypes.func,
-    initialOptions: React.PropTypes.object,
+    value: PropTypes.instanceOf(Date),
+    onChange: PropTypes.func,
+    initialOptions: PropTypes.object,
 
-    valueLink: React.PropTypes.shape({
-      value: React.PropTypes.instanceOf(Date),
-      requestChange: React.PropTypes.func.isRequired
+    valueLink: PropTypes.shape({
+      value: PropTypes.instanceOf(Date),
+      requestChange: PropTypes.func.isRequired
     })
   },
 
