@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import {expect} from 'chai';
@@ -17,7 +18,7 @@ describe('Pikaday', () => {
   describe('updating the date in Pikaday calls handleChange', () => {
 
     it('works manually', function() {
-      var Form = React.createClass({
+      var Form = createReactClass({
         getInitialState: function() {
           return { date: null };
         },
@@ -41,7 +42,7 @@ describe('Pikaday', () => {
     });
 
     it('works with LinkedStateMixin', function() {
-      var Form = React.createClass({
+      var Form = createReactClass({
         mixins: [ LinkedStateMixin ],
 
         getInitialState: function() {
@@ -67,7 +68,7 @@ describe('Pikaday', () => {
   describe('setting the passed-in value sets the rendered date', () => {
 
     it('works manually', () => {
-      var Form = React.createClass({
+      var Form = createReactClass({
         getInitialState: function() {
           return { date: new Date(2014, 0, 1) };
         },
@@ -90,7 +91,7 @@ describe('Pikaday', () => {
     });
 
     it('works with LinkedStateMixin', function() {
-      var Form = React.createClass({
+      var Form = createReactClass({
         mixins: [ LinkedStateMixin ],
 
         getInitialState: function() {
@@ -114,7 +115,7 @@ describe('Pikaday', () => {
 
   describe('clearing the value', () => {
     it('works with LinkedStateMixin', function () {
-      var Form = React.createClass({
+      var Form = createReactClass({
         mixins: [ LinkedStateMixin ],
 
         getInitialState: function() {
@@ -149,7 +150,7 @@ describe('Pikaday', () => {
     it('passes options to pikaday plugin', function() {
       var minDate = new Date(2014, 0, 1);
       let result;
-      var Form = React.createClass({
+      var Form = createReactClass({
         render: function() {
           return (
             <Pikaday ref={({ _picker }) => result = _picker._o.minDate } initialOptions={{ minDate }}/>
