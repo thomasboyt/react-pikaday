@@ -57,7 +57,7 @@ var MyComponent = React.createClass({
         <p>
           The date is {date.toDateString()}
         </p>
-        <Pikaday value={date} onChange={this.handleChange} />
+        <Pikaday value={date} onChange={this.handleChange.bind(this)} />
       </div>
     );
   }
