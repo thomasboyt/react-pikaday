@@ -18,7 +18,7 @@
     "pikaday": "^1.5.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0-rc.1"
+    "react": "^0.14.0 || ^15.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.0",
