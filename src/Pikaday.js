@@ -1,33 +1,15 @@
 import React from 'react';
 import Pikaday from 'pikaday';
 
-var ReactPikaday = React.createClass({
-
-  propTypes: {
-    value: React.PropTypes.instanceOf(Date),
-    onChange: React.PropTypes.func,
-    initialOptions: React.PropTypes.object,
-
-    valueLink: React.PropTypes.shape({
-      value: React.PropTypes.instanceOf(Date),
-      requestChange: React.PropTypes.func.isRequired
-    })
-  },
-
-  getDefaultProps: function() {
-    return {
-      initialOptions: {}
-    };
-  },
-
-  getValueLink: function(props) {
+class ReactPikaday extends React.Component {
+  getValueLink(props) {
     return props.valueLink || {
       value: props.value,
       requestChange: props.onChange
     };
-  },
+  }
 
-  setDateIfChanged: function(newDate, prevDate) {
+  setDateIfChanged(newDate, prevDate) {
     var newTime = newDate ? newDate.getTime() : null;
     var prevTime = prevDate ? prevDate.getTime() : null;
 
@@ -38,10 +20,10 @@ var ReactPikaday = React.createClass({
       }
       this._picker.setDate(newDate, true);  // 2nd param = don't call onSelect
     }
-  },
+  }
 
   // user props to pass down to the underlying DOM node
-  getDomProps: function() {
+  getDomProps() {
     var restProps = {};
     for (var propKey in this.props) {
       if (this.props.hasOwnProperty(propKey) && !ReactPikaday.propTypes[propKey]) {
@@ -49,9 +31,9 @@ var ReactPikaday = React.createClass({
       }
     }
     return restProps
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     var el = this.refs.pikaday;
 
     this._picker = new Pikaday({
@@ -61,20 +43,35 @@ var ReactPikaday = React.createClass({
     });
 
     this.setDateIfChanged(this.getValueLink(this.props).value);
-  },
+  }
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     var newDate = this.getValueLink(nextProps).value;
     var lastDate = this.getValueLink(this.props).value;
 
     this.setDateIfChanged(newDate, lastDate);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <input type="text" ref="pikaday" {...this.getDomProps()} />
     );
   }
-});
+}
+
+ReactPikaday.defaultProps = {
+  initialOptions: {},
+};
+
+ReactPikaday.propTypes = {
+  value: React.PropTypes.instanceOf(Date),
+  onChange: React.PropTypes.func,
+  initialOptions: React.PropTypes.object,
+
+  valueLink: React.PropTypes.shape({
+    value: React.PropTypes.instanceOf(Date),
+    requestChange: React.PropTypes.func.isRequired
+  }),
+};
 
 export default ReactPikaday;

@@ -36,22 +36,21 @@ See the example app in this repo and the `webpack.config.js` for an example of h
 import React from 'react';
 import Pikaday from 'react-pikaday';
 
-var MyComponent = React.createClass({
-  getInitialState: function() {
-    return {
-      date: null
+class MyComponent extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      date: null,
     };
-  },
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  handleChange: function(date) {
-    this.setState({
-      date: date
-    });
-  },
+  handleChange(date) {
+    this.setState({ date });
+  }
 
-  render: function() {
-    var date = this.state.date;
-
+  render() {
+    const date = this.state.date;
     return (
       <div>
         <p>
@@ -61,7 +60,7 @@ var MyComponent = React.createClass({
       </div>
     );
   }
-});
+}
 ```
 
 ## Properties

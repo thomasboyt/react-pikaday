@@ -1,7 +1,8 @@
+'use strict';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import TU from 'react-addons-test-utils';
 
 import Pikaday from '../Pikaday';
@@ -17,21 +18,25 @@ describe('Pikaday', () => {
   describe('updating the date in Pikaday calls handleChange', () => {
 
     it('works manually', function() {
-      var Form = React.createClass({
-        getInitialState: function() {
-          return { date: null };
-        },
+      class Form extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            date: null,
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
 
-        handleChange: function(date) {
-          this.setState({ date: date });
-        },
+        handleChange(date) {
+          this.setState({ date });
+        }
 
-        render: function() {
+        render() {
           return (
             <Pikaday ref="pikaday" value={this.state.date} onChange={this.handleChange} />
-          );
+          )
         }
-      });
+      }
 
       var component = render(<Form />);
       var pikaday = component.refs.pikaday._picker;
@@ -40,20 +45,30 @@ describe('Pikaday', () => {
       expect(component.state.date).to.be.eql(new Date(2014, 0, 1));
     });
 
-    it('works with LinkedStateMixin', function() {
-      var Form = React.createClass({
-        mixins: [ LinkedStateMixin ],
+    it('works with two-way binding', function() {
+      class Form extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            date: null,
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
 
-        getInitialState: function() {
-          return { date: null };
-        },
+        handleChange(date) {
+          this.setState({ date });
+        }
 
-        render: function() {
+        render() {
+          const valueLink = {
+            value: this.state.date,
+            requestChange: this.handleChange,
+          };
           return (
-            <Pikaday ref="pikaday" valueLink={this.linkState('date')} />
+            <Pikaday ref="pikaday" valueLink={valueLink} />
           );
         }
-      });
+      }
 
       var component = render(<Form />);
       var pikaday = component.refs.pikaday._picker;
@@ -67,21 +82,25 @@ describe('Pikaday', () => {
   describe('setting the passed-in value sets the rendered date', () => {
 
     it('works manually', () => {
-      var Form = React.createClass({
-        getInitialState: function() {
-          return { date: new Date(2014, 0, 1) };
-        },
+      class Form extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            date: new Date(2014, 0, 1),
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
 
-        handleChange: function(date) {
-          this.setState({ date: date });
-        },
+        handleChange(date) {
+          this.setState({ date });
+        }
 
-        render: function() {
+        render() {
           return (
             <Pikaday ref="pikaday" value={this.state.date} onChange={this.handleChange} />
           );
         }
-      });
+      }
 
       var component = render(<Form />);
 
@@ -89,20 +108,30 @@ describe('Pikaday', () => {
       expect(input.value).to.be.eql('2014-01-01');
     });
 
-    it('works with LinkedStateMixin', function() {
-      var Form = React.createClass({
-        mixins: [ LinkedStateMixin ],
+    it('works with two-way binding', function() {
+      class Form extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            date: new Date(2014, 0, 1),
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
 
-        getInitialState: function() {
-          return { date: new Date(2014, 0, 1) };
-        },
+        handleChange(date) {
+          this.setState({ date });
+        }
 
-        render: function() {
+        render() {
+          const valueLink = {
+            value: this.state.date,
+            requestChange: this.handleChange,
+          };
           return (
-            <Pikaday ref="pikaday" valueLink={this.linkState('date')} />
+            <Pikaday ref="pikaday" valueLink={valueLink} />
           );
         }
-      });
+      }
 
       var component = render(<Form />);
 
@@ -113,18 +142,28 @@ describe('Pikaday', () => {
   });
 
   describe('clearing the value', () => {
-    it('works with LinkedStateMixin', function () {
-      var Form = React.createClass({
-        mixins: [ LinkedStateMixin ],
+    it('works with two-way binding', function () {
+      class Form extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            date: new Date(2014, 0, 1),
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
 
-        getInitialState: function() {
-          return { date: new Date(2014, 0, 1) };
-        },
+        handleChange(date) {
+          this.setState({ date });
+        }
 
-        render: function() {
+        render() {
+          const valueLink = {
+            value: this.state.date,
+            requestChange: this.handleChange,
+          };
           return (
             <div>
-              <Pikaday ref="pikaday" valueLink={this.linkState('date')} />
+              <Pikaday ref="pikaday" valueLink={valueLink} />
               <button ref="clearBtn"
                 onClick={() => this.setState({ date: null })}>
                 Clear
@@ -132,7 +171,7 @@ describe('Pikaday', () => {
             </div>
           );
         }
-      });
+      }
 
       var component = render(<Form />);
 
@@ -149,13 +188,13 @@ describe('Pikaday', () => {
     it('passes options to pikaday plugin', function() {
       var minDate = new Date(2014, 0, 1);
       let result;
-      var Form = React.createClass({
-        render: function() {
+      class Form extends React.Component {
+        render() {
           return (
             <Pikaday ref={({ _picker }) => result = _picker._o.minDate } initialOptions={{ minDate }}/>
           );
         }
-      });
+      }
 
       TU.renderIntoDocument(<Form />);
 
